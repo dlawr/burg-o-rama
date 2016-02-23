@@ -1,4 +1,3 @@
-'use strict'
 var express = require('express');
 var burgers = express.Router();
 // var app = express();

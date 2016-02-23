@@ -1,4 +1,4 @@
-'use strict'
+var ejs = require('ejs');
 var express = require('express');
 var path = require('path');
 var morgan = require('morgan');
