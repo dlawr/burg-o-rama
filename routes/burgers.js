@@ -3,6 +3,8 @@ var express = require('express');
 var burgers = express.Router();
 // var app = express();
 
+var burgerData = [];
+var sampleData = ['1','2','3'];
 
 function cr(input, output) {
   output.send(input.route);
@@ -10,8 +12,14 @@ function cr(input, output) {
 
 
 burgers.get('/', function(req, res) {
-  cr(req, res);
+  res.send(burgerData);
 });
+burgers.post('/', function(req, res) {
+  burgerData.push(req.body);
+  res.redirect('/burgers/' + burgerData.length);
+  console.log(burgerData);
+});
+
 
 burgers.get('/:id/edit', function(req, res) {
   cr(req, res);
@@ -26,6 +34,12 @@ burgers.get('/:id', function(req, res) {
 burgers.post('/:id', function(req, res) {
   cr(req, res);
 });
+burgers.delete('/:id', function(req, res) {
+  if(burgerData[req.params.id]) {
+    burgerData = burgerData.slice(req.params.id);
+  }
+});
+
 
 
 burgers.get('/new', function(req, res) {
