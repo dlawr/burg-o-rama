@@ -1,22 +1,22 @@
 var express = require('express');
 var burgers = express.Router();
+var db = require('./../db/pg');
 // var app = express();
 
-var burgerData = [];
-var sampleData = ['1','2','3'];
+
 
 function cr(input, output) {
   output.send(input.route);
 }
 
 
-burgers.get('/', function(req, res) {
-  res.send(burgerData);
+burgers.get('/', db.showAllBurgers, function(req, res) {
+  console.log('------------------/burgers');
+  console.log(res.rows);
+  res.render('pages/homepage.html.ejs', {burgers: res.rows});
 });
 burgers.post('/', function(req, res) {
-  burgerData.push(req.body);
-  res.redirect('/burgers/' + burgerData.length);
-  console.log(burgerData);
+  res.redirect('/burgers/');
 });
 
 
@@ -34,9 +34,7 @@ burgers.post('/:id', function(req, res) {
   cr(req, res);
 });
 burgers.delete('/:id', function(req, res) {
-  if(burgerData[req.params.id]) {
-    burgerData = burgerData.slice(req.params.id);
-  }
+  res.redirect(301, /burgers/);
 });
 
 
