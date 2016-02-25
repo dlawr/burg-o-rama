@@ -1,12 +1,16 @@
+var pg = require('pg');
 var ejs = require('ejs');
 var express = require('express');
 var path = require('path');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var db = require('./db/pg');
 var app = express();
 var port = process.env.PORT || 3000;
 var burgerRoutes = require( path.join(__dirname, '/routes/burgers'));
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(morgan('dev'));
 
@@ -28,7 +32,7 @@ function cr(input) {
 }
 
 app.get('/', function(req, res) {
-  cr(req);
+  res.render('pages/homepage.html.ejs');
 });
 
 app.use( '/burgers', burgerRoutes)
