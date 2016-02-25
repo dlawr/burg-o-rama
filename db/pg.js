@@ -4,6 +4,7 @@ var connectionString = "postgres://dan:wak24pie@localhost/burgers_db";
 
 function deleteBurger(req, res, next) {
   console.log('-------------------deleteBurger');
+  console.log()
   next();
 }
 
